@@ -10,8 +10,9 @@ def main(ikein_info, ikein_methods, methods, args):
             output_command = ikein_methods[command]["method"](ikein_info, *args[2:])
         else:
             output_command = methods[command]["method"](*args[2:])
-
+        print("<<START_COMMAND>>")
         print(output_command)
+        print("<<END_COMMAND>>")
     except Exception as e:
         print(e)
 

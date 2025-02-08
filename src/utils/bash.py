@@ -1,4 +1,5 @@
 import re
+import sys
 
 IKEIN_NAME = "- [I.K.E.I.N.]"
 
@@ -27,3 +28,13 @@ def precho(message: str):
 
 def printsh(message: str):
     print(__escape_special_characters(message))
+
+
+def secure_input(prompt):
+    print(f"{IKEIN_NAME}: {prompt}", file=sys.stderr, end="", flush=True)
+    return input()
+
+
+def confirm(prompt):
+    print(f"{IKEIN_NAME}: {prompt} (y/n): ", file=sys.stderr, end="", flush=True)
+    return input().lower() == "y"

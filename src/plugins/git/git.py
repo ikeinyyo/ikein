@@ -1,10 +1,9 @@
-import os
 import random
 import string
 import subprocess
-import sys
 
 from utils.bash import confirm, echo
+from utils.config import get_config
 
 
 def _generate_tmp(length=5):
@@ -134,31 +133,27 @@ def update_current_branch(*args):
         return f"""
             git fetch {args[0]}
             git checkout -b {tmp}
-            git branch -D ${current_branch}
-            git checkout --track {args[0]}/${current_branch}
-            git branch -D tmp
+            git branch -D {current_branch}
+            git checkout --track {args[0]}/{current_branch}
+            git branch -D {tmp}
         """
     return f"""
         git fetch origin
         git checkout -b {tmp}
-        git branch -D ${current_branch}
-        git checkout --track origin/${current_branch}
-        git branch -D tmp
+        git branch -D {current_branch}
+        git checkout --track origin/{current_branch}
+        git branch -D {tmp}
     """
 
 
 def configure_user(*args):
-    options = {
-        "github": {"email": "ikeinyyo@outlook.com", "name": "ikeinyyo"},
-        "ikein": {"email": "ikeinyyo@outlook.com", "name": "Sergio Gallardo Sales"},
-        "mdw": {"email": "sergio.gallardo@mdwpartners.com", "name": "Sergio Gallardo"},
-    }
+    profiles = get_config().get("git", {}).get("profiles", {})
 
-    if len(args) == 1 and args[0] in options.keys():
-        user = options[args[0]]
+    if len(args) == 1 and args[0] in profiles.keys():
+        user = profiles[args[0]]
         return f"""
             git config user.email "{user['email']}"
             git config user.name "{user['name']}"
             {echo(f'New user: {user["name"]} ({user["email"]})')}
         """
-    return echo(f"Profile not found. Available profiles: {', '.join(options.keys())}")
+    return echo(f"Profile not found. Available profiles: {', '.join(profiles.keys())}")

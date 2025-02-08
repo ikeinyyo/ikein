@@ -1,3 +1,5 @@
+import argparse
+import json
 import os
 import shutil
 import subprocess
@@ -8,28 +10,21 @@ CONSOLE_FILE = ".zshrc"
 FILES_TO_COPY = ["ikein.py", "ikein.sh"]
 DIRECTORIES_TO_COPY = ["plugins", "utils"]
 ALIAS_NAME = "ikein"
+CONFIGURATION_FILE = "config.json"
 
 
-def main():
-    entry_point = "ikein.sh"
-    root_path = os.path.expanduser("~/ikein")
-    script_path = os.path.join(root_path, entry_point)
-    initialize(root_path)
-    add_execution_permision(script_path)
-    add_alias(script_path)
-
-
-def initialize(root_path):
-    create_root_directory(root_path)
+def initialize(root_path, purge):
+    create_root_directory(root_path, purge)
     copy(root_path, FILES_TO_COPY, is_directory=False)
     copy(root_path, DIRECTORIES_TO_COPY, is_directory=True)
 
 
-def create_root_directory(root_path):
-    if os.path.exists(root_path):
+def create_root_directory(root_path, purge):
+    if os.path.exists(root_path) and purge:
         shutil.rmtree(root_path)
         print(f"Deleting '{root_path}' directory...")
-    os.makedirs(root_path)
+    if not os.path.exists(root_path):
+        os.makedirs(root_path)
     print(f"Creating '{root_path}' directory...")
 
 
@@ -89,5 +84,45 @@ def clear_alias(alias_name):
         print(f"The alias '{alias_name}' does not exist in the {CONSOLE_FILE} file.")
 
 
+def update_configuration_file(root_path):
+    ikein_config_file = os.path.join(root_path, CONFIGURATION_FILE)
+    local_config_file = os.path.join("src", CONFIGURATION_FILE)
+
+    if not os.path.exists(ikein_config_file):
+        print("Creating configuration file...")
+        os.makedirs(os.path.dirname(ikein_config_file), exist_ok=True)
+        with open(local_config_file, "r") as src:
+            with open(ikein_config_file, "w") as dest:
+                dest.write(src.read())
+        return
+
+    with open(local_config_file, "r") as src:
+        local_config = json.load(src)
+
+    with open(ikein_config_file, "r") as dest:
+        ikein_config = json.load(dest)
+
+    merged_config = {
+        **local_config,
+        **ikein_config,
+    }
+
+    with open(ikein_config_file, "w") as dest:
+        print("Updating configuration file...")
+        json.dump(merged_config, dest, indent=4)
+
+
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--purge", action="store_true", help="Activa el modo purge", required=False
+    )
+    args = parser.parse_args()
+
+    entry_point = "ikein.sh"
+    root_path = os.path.expanduser("~/ikein")
+    script_path = os.path.join(root_path, entry_point)
+    initialize(root_path, args.purge)
+    add_execution_permision(script_path)
+    add_alias(script_path)
+    update_configuration_file(root_path)

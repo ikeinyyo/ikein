@@ -1,0 +1,16 @@
+{
+    "displayName": "<username>",
+    "git": {
+        "profiles": {
+            "sample": {
+                "email": "email@email.com",
+                "name": "username"
+            }
+        }
+    },
+    "goto": {
+        "dirs": {
+            "key": "path"
+        }
+    }
+}

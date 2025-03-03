@@ -1,10 +1,11 @@
 import sys
 
+from utils.core import LIST_METHOD
 from utils.loads import load
 
 
 def main(ikein_info, ikein_methods, methods, args):
-    command = args[1]
+    command = args[1] if len(args) > 1 else LIST_METHOD
     try:
         if command in ikein_methods:
             output_command = ikein_methods[command]["method"](ikein_info, *args[2:])

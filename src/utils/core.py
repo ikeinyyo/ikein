@@ -2,6 +2,8 @@ import os
 
 from .bash import printsh
 
+LIST_METHOD = "list"
+
 
 def list_methods(ikein_info):
     for category in ikein_info:
@@ -27,7 +29,7 @@ def open_configuration(_):
 
 methods = {
     "ikein": {
-        "list": {
+        LIST_METHOD: {
             "method": list_methods,
             "info": "Displays all available IKEIN commands.",
             "usage": "ikein list",

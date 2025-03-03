@@ -1,3 +1,5 @@
+import os
+
 from .bash import printsh
 
 
@@ -18,6 +20,11 @@ def usage_method(ikein_info, *args):
     return ""
 
 
+def open_configuration(_):
+    file_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
+    return f"code {os.path.join(file_directory, 'config.json')}"
+
+
 methods = {
     "ikein": {
         "list": {
@@ -29,6 +36,11 @@ methods = {
             "method": usage_method,
             "info": "Provides usage details for a specific command.",
             "usage": "ikein usage [command]",
+        },
+        "config": {
+            "method": open_configuration,
+            "info": "Open the IKEIN configuration JSON file for editing.",
+            "usage": "ikein config",
         },
     }
 }

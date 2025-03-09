@@ -12,5 +12,13 @@
         "dirs": {
             "key": "path"
         }
+    },
+    "run": {
+        "commands": {
+            "key": {
+                "directory": "path",
+                "command": "command"
+            }
+        }
     }
 }

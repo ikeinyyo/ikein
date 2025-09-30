@@ -2,7 +2,7 @@ import glob
 import importlib
 import os
 from functools import reduce
-from typing import Dict
+from typing import Dict, Tuple
 
 
 def import_plugins(folder_path: str) -> Dict:
@@ -50,7 +50,7 @@ def flatten_methods(nested_dict: Dict) -> Dict:
     return flat_dict
 
 
-def load(plugins_path: str) -> tuple[Dict, Dict, Dict]:
+def load(plugins_path: str) -> Tuple[Dict, Dict, Dict]:
     """
     Loads plugins and their methods, returning structured dictionaries.
 
@@ -58,13 +58,12 @@ def load(plugins_path: str) -> tuple[Dict, Dict, Dict]:
         plugins_path (str): Path to the plugins directory.
 
     Returns:
-        tuple[Dict, Dict, Dict]:
+        Tuple[Dict, Dict, Dict]:
             - ikein_info: Dictionary containing all methods from core and plugins.
             - ikein_methods: Flattened dictionary of core methods.
             - methods: Flattened dictionary of all loaded methods.
     """
     from .core import methods as ikein_methods
-
     methods = import_plugins(plugins_path)
     ikein_info = ikein_methods.copy()
     ikein_info.update(methods)

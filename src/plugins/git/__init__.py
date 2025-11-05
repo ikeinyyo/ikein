@@ -5,6 +5,7 @@ from .git import (
     create_new_bug_branch,
     create_new_feature_branch,
     delete_all_local_branches,
+    fetch_and_rebase,
     ignore_tracked_file,
     show_git_tree,
     squash,
@@ -25,6 +26,11 @@ methods = {
     },
     "gclean": {
         "method": clean_and_go_main,
+        "info": "Cleans the target branch and updates it from the remote repository.",
+        "usage": "ikein gclean [remote] [branch]",
+    },
+    "gsync": {
+        "method": fetch_and_rebase,
         "info": "Cleans the target branch and updates it from the remote repository.",
         "usage": "ikein gclean [remote] [branch]",
     },

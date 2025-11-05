@@ -133,6 +133,32 @@ def clean_and_go_main(*args: str) -> str:
     """
 
 
+def fetch_and_rebase(*args: str) -> str:
+    """
+    Fetches and rebases the specified branch.
+
+    Parameters:
+        args (str): The remote or branch name to use when switching to the main branch.
+
+    Returns:
+        str: A series of git commands to fetch and rebase the specified branch.
+    """
+    if len(args) == 1:
+        return f"""
+            git fetch origin
+            git rebase origin/{args[0]}
+        """
+    elif len(args) == 2:
+        return f"""
+            git fetch {args[0]}
+            git rebase {args[0]}/{args[1]}
+        """
+    return f"""
+        git fetch origin
+        git rebase origin/main
+    """
+
+
 def squash(*args: str) -> str:
     """
     Squashes git commits into a single commit.

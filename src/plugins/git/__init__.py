@@ -14,64 +14,64 @@ from .git import (
 )
 
 methods = {
-    "gnewf": {
+    "newf": {
         "method": create_new_feature_branch,
         "info": "Creates a new feature branch.",
-        "usage": "ikein gnewf <feature_name>",
+        "usage": "ikein newf <feature_name>",
     },
-    "gnewb": {
+    "newb": {
         "method": create_new_bug_branch,
         "info": "Creates a new bug branch.",
-        "usage": "ikein gnewb <bug_name>",
+        "usage": "ikein newb <bug_name>",
     },
-    "gclean": {
+    "clean": {
         "method": clean_and_go_main,
         "info": "Cleans the target branch and updates it from the remote repository.",
-        "usage": "ikein gclean [remote] [branch]",
+        "usage": "ikein clean [remote] [branch]",
     },
-    "gsync": {
+    "sync": {
         "method": fetch_and_rebase,
         "info": "Cleans the target branch and updates it from the remote repository.",
-        "usage": "ikein gclean [remote] [branch]",
+        "usage": "ikein sync [remote] [branch]",
     },
-    "gsquash": {
+    "squash": {
         "method": squash,
         "info": "Performs a Git squash operation to combine multiple commits into one.",
-        "usage": "ikein gsquash [remote] [branch]",
+        "usage": "ikein squash [remote] [branch]",
     },
-    "gundo": {
+    "undo": {
         "method": undo,
         "info": "Undoes changes made to the specified files in the repository.",
-        "usage": "ikein gundo [files]",
+        "usage": "ikein undo [files]",
     },
-    "gbclean": {
+    "branch-clean": {
         "method": delete_all_local_branches,
         "info": "Delete all local branches except the current one.",
-        "usage": "ikein gbclean",
+        "usage": "ikein branch-clean",
     },
-    "gtree": {
+    "tree": {
         "method": show_git_tree,
         "info": "Display the Git commit tree.",
-        "usage": "ikein gtree",
+        "usage": "ikein tree",
     },
-    "gcache": {
+    "cache": {
         "method": clean_git_cache,
         "info": "Remove all untracked files and directories from the working directory in Git.",
-        "usage": "ikein gcache",
+        "usage": "ikein cache",
     },
-    "glock": {
+    "lock": {
         "method": ignore_tracked_file,
         "info": "Temporarily ignore local changes to a tracked file without modifying .gitignore.",
-        "usage": "ikein glock <file>",
+        "usage": "ikein lock <file>",
     },
-    "gupdate": {
+    "update": {
         "method": update_current_branch,
         "info": "Update the current branch with the latest changes from the specified remote.",
-        "usage": "ikein gupdate [remote]",
+        "usage": "ikein update [remote]",
     },
-    "guser": {
+    "user": {
         "method": configure_user,
         "info": "Update the Git user configuration (name and email) with the specified profile.",
-        "usage": "ikein guser [profile]",
+        "usage": "ikein user [profile]",
     },
 }

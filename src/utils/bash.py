@@ -1,4 +1,3 @@
-import re
 import sys
 from typing import Dict
 

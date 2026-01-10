@@ -64,6 +64,7 @@ def load(plugins_path: str) -> Tuple[Dict, Dict, Dict]:
             - methods: Flattened dictionary of all loaded methods.
     """
     from .core import methods as ikein_methods
+
     methods = import_plugins(plugins_path)
     ikein_info = ikein_methods.copy()
     ikein_info.update(methods)

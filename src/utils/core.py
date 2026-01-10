@@ -34,11 +34,17 @@ def usage_method(ikein_info: Dict[str, Dict[str, Any]], *args: str) -> str:
     Returns:
         str: An empty string as output control.
     """
+    if len(args) < 2:
+        printsh("Invalid usage. Use: ikein usage <plugin> <method>")
+        return ""
+
     for category in ikein_info:
         for method in ikein_info[category]:
-            if method == args[0]:
-                printsh(f"- {ikein_info[category][method]['info']}:")
+            if category == args[0] and method == args[1]:
+                printsh(f"- {ikein_info[category][method]['info']}")
                 printsh(f"\t$ {ikein_info[category][method]['usage']}")
+                return ""
+    printsh("Method not found")
     return ""
 
 

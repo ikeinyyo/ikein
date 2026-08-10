@@ -15,12 +15,12 @@ from .git import (
 )
 
 methods = {
-    "newf": {
+    "feature": {
         "method": create_new_feature_branch,
         "info": "Creates a new feature branch.",
         "usage": "ikein newf <feature_name>",
     },
-    "newb": {
+    "bug": {
         "method": create_new_bug_branch,
         "info": "Creates a new bug branch.",
         "usage": "ikein newb <bug_name>",
@@ -77,7 +77,7 @@ methods = {
     },
     "tag": {
         "method": create_tag,
-        "info": "Create a new Git tag.",
+        "info": "Create a and push a new Git tag.",
         "usage": "ikein tag <tag_name>",
     },
 }

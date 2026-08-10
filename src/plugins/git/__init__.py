@@ -4,6 +4,7 @@ from .git import (
     configure_user,
     create_new_bug_branch,
     create_new_feature_branch,
+    create_tag,
     delete_all_local_branches,
     fetch_and_rebase,
     ignore_tracked_file,
@@ -73,5 +74,10 @@ methods = {
         "method": configure_user,
         "info": "Update the Git user configuration (name and email) with the specified profile.",
         "usage": "ikein user [profile]",
+    },
+    "tag": {
+        "method": create_tag,
+        "info": "Create a new Git tag.",
+        "usage": "ikein tag <tag_name>",
     },
 }

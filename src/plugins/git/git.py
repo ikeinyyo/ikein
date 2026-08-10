@@ -298,3 +298,26 @@ def configure_user(*args: str) -> str:
             {echo(f'New user: {user["name"]} ({user["email"]})')}
         """
     return echo(f"Profile not found. Available profiles: {', '.join(profiles.keys())}")
+
+
+def create_tag(*args: str) -> str:
+    """
+    Creates a new git tag.
+
+    Parameters:
+        args (str): The name of the tag to create.
+
+    Returns:
+        str: The git command to create the tag, or an error message if no tag name is provided.
+    """
+    if len(args) == 1:
+        return f"""
+        git tag {args[0]}
+        git push origin {args[0]}
+        """
+    elif len(args) == 2:
+        return f"""
+        git tag {args[1]}
+        git push {args[0]} {args[1]}
+        """
+    return echo("A tag name is required.")
